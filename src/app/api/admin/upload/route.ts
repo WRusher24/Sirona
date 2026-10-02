@@ -1,5 +1,4 @@
-import { mkdir, writeFile } from "fs/promises";
-import path from "path";
+import { put } from "@vercel/blob";
 import { CONTENT_DEF_MAP } from "@/lib/content";
 import { getAdminUser } from "@/lib/server/auth";
 import { upsertContents } from "@/lib/server/content-store";
@@ -16,7 +15,7 @@ const MIME_EXT: Record<string, string> = {
 
 /**
  * Receives a multipart form with `key` (an image-type content slot) and
- * `file`, stores it under /public/uploads and points the slot at it.
+ * `file`, uploads it to Vercel Blob storage and points the slot at it.
  */
 export async function POST(request: Request) {
   const user = await getAdminUser();
@@ -51,12 +50,21 @@ export async function POST(request: Request) {
 
   const safeKey = key.replace(/[^a-z0-9]/gi, "-");
   const fileName = `${safeKey}-${Date.now()}.${ext}`;
-  const uploadsDir = path.join(process.cwd(), "public", "uploads");
-  await mkdir(uploadsDir, { recursive: true });
-  const buffer = Buffer.from(await file.arrayBuffer());
-  await writeFile(path.join(uploadsDir, fileName), buffer);
 
-  const value = `/uploads/${fileName}`;
-  await upsertContents([{ key, value }]);
-  return Response.json({ ok: true, key, value });
+  try {
+    // Upload directly to Vercel Blob storage in the cloud
+    const blob = await put(fileName, file, {
+      access: "public",
+    });
+
+    const value = blob.url;
+    await upsertContents([{ key, value }]);
+    return Response.json({ ok: true, key, value });
+  } catch (error) {
+    console.error("Blob upload error:", error);
+    return Response.json(
+      { error: "שגיאה בהעלאת הקובץ לענן. בדוק הגדרות Vercel Blob." },
+      { status: 500 }
+    );
+  }
 }
