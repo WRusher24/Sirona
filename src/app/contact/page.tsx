@@ -24,11 +24,11 @@ export default async function ContactPage() {
   const website = c["contact.website"].trim();
   const websiteHref = /^https?:\/\//i.test(website) ? website : `https://${website}`;
 
-  const lat = encodeURIComponent(c["contact.map.lat"].trim() || "32.8720315");
-  const lng = encodeURIComponent(c["contact.map.lng"].trim() || "35.3069895");
-  const zoom = encodeURIComponent(c["contact.map.zoom"].trim() || "18");
+  const lat = encodeURIComponent(c["contact.map.lat"].trim() || "32.872162");
+  const lng = encodeURIComponent(c["contact.map.lng"].trim() || "35.309511");
+  const zoom = encodeURIComponent(c["contact.map.zoom"].trim() || "17");
   const mapEmbedUrl = `https://www.google.com/maps?q=${lat},${lng}&z=${zoom}&hl=iw&output=embed`;
-  const mapLinkUrl = `https://maps.app.goo.gl/uHc1hKzo7KVqaGtQ6`;
+  const mapLinkUrl = `https://www.google.com/maps/place/32%C2%B052'19.8%22N+35%C2%B018'34.2%22E/@32.872162,35.309511,17z`;
 
   const details = [
     {
