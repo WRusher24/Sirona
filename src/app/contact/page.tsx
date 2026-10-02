@@ -27,7 +27,7 @@ export default async function ContactPage() {
   const lat = encodeURIComponent(c["contact.map.lat"].trim() || "32.872162");
   const lng = encodeURIComponent(c["contact.map.lng"].trim() || "35.309511");
   const zoom = encodeURIComponent(c["contact.map.zoom"].trim() || "17");
-  const mapEmbedUrl = `https://maps.google.com/maps?q=${lat},${lng}&t=&z=${zoom}&ie=UTF8&iwloc=&output=embed`;
+  const mapEmbedUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3350.9882055823655!2d35.30698947710093!3d32.872031479121695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151c37a895d96977%3A0x9e733ecb626b0751!2z16HXmdeo15XXoNeUINeT15jXqNeS16DXmNeZ150g15HXoiLXng!5e0!3m2!1sen!2sil!4v1790925666196!5m2!1sen!2sil";
   const mapLinkUrl = "https://www.google.com/maps/place/32%C2%B052'19.8%22N+35%C2%B018'34.2%22E/@32.872162,35.309511,17z";
   
   const details = [
