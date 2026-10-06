@@ -9,7 +9,6 @@ import {
   MessageSquareText,
   Package,
   Palette,
-  Quote,
   Ruler,
   ShieldCheck,
   Truck,
@@ -30,25 +29,6 @@ const FLEX_ICONS = [FlaskConical, Boxes, Ruler];
 
 export default async function PrivateLabelPage() {
   const c = await getContentMap();
-
-  const clients = [
-    {
-      brand: c["pl.exp1.brand"],
-      tag: c["pl.exp1.tag"],
-      title: c["pl.exp1.title"],
-      text: c["pl.exp1.text"],
-      initial: "ס",
-      accent: "from-brand-500 to-brand-700",
-    },
-    {
-      brand: c["pl.exp2.brand"],
-      tag: c["pl.exp2.tag"],
-      title: c["pl.exp2.title"],
-      text: c["pl.exp2.text"],
-      initial: "ק",
-      accent: "from-brand-400 to-brand-600",
-    },
-  ];
 
   return (
     <>
@@ -154,35 +134,6 @@ export default async function PrivateLabelPage() {
               <SectionHeading title={c["pl.exp.title"]} subtitle={c["pl.exp.subtitle"]} />
             </div>
           </Reveal>
-
-          <div className="mx-auto mt-14 grid max-w-5xl gap-8 lg:grid-cols-2">
-            {clients.map((client, idx) => (
-              <Reveal key={client.brand} delay={idx * 140}>
-                <article className="relative h-full overflow-hidden rounded-[2rem] border border-brand-100 bg-white p-8 shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lift sm:p-10">
-                  <Quote className="absolute -top-2 end-6 h-20 w-20 text-brand-50" aria-hidden />
-                  <div className="relative flex items-center gap-4">
-                    <span
-                      className={`flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br text-3xl font-extrabold text-white shadow-lg shadow-brand-600/25 ${client.accent}`}
-                    >
-                      {client.initial}
-                    </span>
-                    <div>
-                      <p className="text-2xl font-extrabold tracking-tight text-brand-950">
-                        {client.brand}
-                      </p>
-                      <span className="mt-1 inline-block rounded-full bg-brand-50 px-3 py-1 text-xs font-extrabold text-brand-700">
-                        {client.tag}
-                      </span>
-                    </div>
-                  </div>
-                  <h3 className="relative mt-6 text-lg font-extrabold text-brand-900">
-                    {client.title}
-                  </h3>
-                  <p className="relative mt-3 leading-8 text-slate-600">{client.text}</p>
-                </article>
-              </Reveal>
-            ))}
-          </div>
 
           <Reveal delay={200}>
             <p className="mx-auto mt-10 max-w-2xl text-center text-sm leading-7 text-slate-500">
